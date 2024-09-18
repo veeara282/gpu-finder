@@ -280,7 +280,7 @@ def create_instance(compute, project, config, zone_list):
             break
         elif regions_attempted >= len(regions_to_try):
             print(f"All regions attempted, there are not enough resources to create the desired {compute_config['number_of_instances']} instances, {instances} created")
-            break
+            exit(1)
     return(created_instances)
     time.sleep(1)
 
@@ -346,6 +346,7 @@ def main(gpu_config, wait=True):
         delete_instance(compute, gpu_config["project_id"], instance_details)
     else:
         print(f"No regions available with the instance configuration {gpu_config['instance_config']['machine_type']} machine type and {gpu_config['instance_config']['gpu_type']} GPU type")
+        exit(1)
 
 if __name__ == '__main__':
     with open('gpu-config.json', 'r') as f:
